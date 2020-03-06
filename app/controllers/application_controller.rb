@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
-  include ActionController::RequestForgeryProtection
+  # include ActionController::RequestForgeryProtection
 
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session
   helper_method :current_user
 
   def current_user
@@ -12,15 +12,13 @@ class ApplicationController < ActionController::API
 
   def authorize
     if !current_user
-      flash[:alert] = "You need to sign in."
-      redirect_to '/'
+      json_response('You are not authorized to access this feature')
     end
   end
 
   def authorize_conversation(user, conversation)
     if current_user.id != conversation.user1_id && current_user.id != conversation.user2_id
-      flash[:alert] = 'You are not authorized to access that feature.'
-      redirect_to '/'
+      json_response('You are not authorized to access that feature.')
     end
   end
 

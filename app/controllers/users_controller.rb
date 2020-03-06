@@ -11,7 +11,8 @@ class UsersController < ApplicationController
       if @user.save
         # flash[:notice] = "You've successfully signed up!"
         session[:user_id] = @user.id
-        json_response(@user)
+        json_response('adjksfhadfsjkkl')
+        # json_response(@user)
         # redirect_to "/"
       # else
         # flash[:alert] = "There was a problem signing up."
@@ -38,7 +39,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :username, :password, :password_confirmation)
+    params.permit(:email, :username, :password, :password_confirmation)
   end
 
   def json_response(objec, status = :ok)
